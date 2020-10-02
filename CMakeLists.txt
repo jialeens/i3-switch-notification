@@ -4,6 +4,8 @@ set(CMAKE_CXX_STANDARD 14)
 include(FindPkgConfig)
 add_subdirectory(i3ipc++)
 
+INCLUDE_DIRECTORIES ("src")
+
 pkg_check_modules (GTK3 REQUIRED gtk+-3.0)
 
 include_directories (
@@ -14,9 +16,15 @@ include_directories (
 link_directories (
         ${I3IPCpp_LIBRARY_DIRS}
         ${GTK3_LIBRARY_DIRS})
-aux_source_directory(
-        src DIR_SRCS
-)
+
+set (DIR_SRCS
+        src/main.cpp
+        src/NotificationMainWindow.cpp
+        src/NotificationMainWindow.h
+        src/NotificationController.cpp
+        src/NotificationController.h
+        src/Consts.h)
+
 add_definitions (
         ${GTK3_CFLAGS_OTHER}
 )
