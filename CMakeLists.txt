@@ -3,6 +3,7 @@ project(i3_switch_notification)
 set(CMAKE_CXX_STANDARD 14)
 include(FindPkgConfig)
 add_subdirectory(i3ipc++)
+add_subdirectory(src)
 
 INCLUDE_DIRECTORIES ("src")
 
