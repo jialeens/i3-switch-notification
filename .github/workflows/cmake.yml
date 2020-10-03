@@ -12,7 +12,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gir1.2-gtk-3.0
+          sudo apt-get install -y libgtk3*
           
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
