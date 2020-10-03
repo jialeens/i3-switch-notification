@@ -26,7 +26,7 @@ jobs:
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
-        run: 
+        run: |
           tree -a
           cmake --build . --config $BUILD_TYPE
 
