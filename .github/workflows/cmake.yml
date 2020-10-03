@@ -27,7 +27,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: |
-          tree -a
+          tree -a /home/runner/work/i3-switch-notification/
           cmake --build . --config $BUILD_TYPE
 
       - name: Test
