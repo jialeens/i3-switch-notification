@@ -6,4 +6,4 @@
 
 ❗**UNSTABLE!!!**
 
-![Screenshots](/home/jiale/project/github/jialeens/i3-switch-notification/Screenshots.gif)
+![Screenshots](Screenshots.gif)
