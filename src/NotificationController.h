@@ -11,11 +11,10 @@ using namespace std;
 
 class NotificationController {
    public:
-    static bool running;
     explicit NotificationController(NotificationMainWindow *mainWindow);
     static int *i3WorkspaceNotification(NotificationMainWindow *mainWindow);
     static int *windowController(NotificationMainWindow *mainWindow);
-    const int MICROSECOND_UNIT = 1000 * 1000;
+    static const int MICROSECOND_UNIT = 1000 * 1000;
 };
 
 #endif  //I3_SWITCH_NOTIFICATION_NOTIFICATION_H
