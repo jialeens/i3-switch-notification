@@ -11,6 +11,7 @@ pkg_check_modules (GTK3 REQUIRED gtk+-3.0)
 include_directories (
         ${I3IPCpp_INCLUDE_DIRS}
         ${GTK3_INCLUDE_DIRS}
+        "src"
 )
 
 link_directories (
