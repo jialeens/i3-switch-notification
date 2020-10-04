@@ -4,7 +4,6 @@
 #include <iostream>
 #include <gtk/gtk.h>
 #include <i3ipc++/ipc.hpp>
-#include "Consts.h"
 #include "NotificationMainWindow.h"
 using namespace std;
 #ifndef I3_SWITCH_NOTIFICATION_NOTIFICATION_H
@@ -16,6 +15,7 @@ class NotificationController {
     explicit NotificationController(NotificationMainWindow *mainWindow);
     static int *i3WorkspaceNotification(NotificationMainWindow *mainWindow);
     static int *windowController(NotificationMainWindow *mainWindow);
+    const int MICROSECOND_UNIT = 1000 * 1000;
 };
 
 #endif  //I3_SWITCH_NOTIFICATION_NOTIFICATION_H
