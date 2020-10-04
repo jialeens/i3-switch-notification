@@ -24,7 +24,7 @@ set (DIR_SRCS
         src/NotificationMainWindow.h
         src/NotificationController.cpp
         src/NotificationController.h
-        src/Consts.h)
+        )
 
 add_definitions (
         ${GTK3_CFLAGS_OTHER}

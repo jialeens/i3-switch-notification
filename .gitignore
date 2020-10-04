@@ -32,6 +32,10 @@
 *.app
 
 # build dir
-cmake-build-debug
+/build
+
+#submodule
+/i3ipc++
+
 # CLion dir
-.idea
+/.idea
