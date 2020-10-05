@@ -1,34 +1,51 @@
-cmake_minimum_required(VERSION 3.15)
-project(i3_switch_notification)
-set(CMAKE_CXX_STANDARD 14)
-include(FindPkgConfig)
-add_subdirectory(i3ipc++)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.15)
+PROJECT(i3_switch_notification)
+SET(CMAKE_CXX_STANDARD 14)
 
-INCLUDE_DIRECTORIES ("src")
+# Set the version
+SET (PROJECT_VERSION_MAJOR "1")
+SET (PROJECT_VERSION_MINOR "0")
+SET (PROJECT_VERSION_PATCH "0")
+SET (PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 
-pkg_check_modules (GTK3 REQUIRED gtk+-3.0)
+# Set the install prefix
+IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
+    SET(CMAKE_INSTALL_PREFIX "/usr/local")
+ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
+STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
-include_directories (
+INCLUDE(FindPkgConfig)
+
+ADD_SUBDIRECTORY(i3ipc++)
+PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
+INCLUDE_DIRECTORIES(
         ${I3IPCpp_INCLUDE_DIRS}
         ${GTK3_INCLUDE_DIRS}
         "src"
 )
 
-link_directories (
+LINK_DIRECTORIES(
         ${I3IPCpp_LIBRARY_DIRS}
         ${GTK3_LIBRARY_DIRS})
 
-set (DIR_SRCS
+SET(DIR_SRCS
         src/main.cpp
         src/NotificationMainWindow.cpp
         src/NotificationMainWindow.h
         src/NotificationController.cpp
         src/NotificationController.h
         )
-
-add_definitions (
+ADD_DEFINITIONS (
         ${GTK3_CFLAGS_OTHER}
 )
-add_executable(i3_switch_notification ${DIR_SRCS})
 
-target_link_libraries(i3_switch_notification ${I3IPCpp_LIBRARIES} ${GTK3_LDFLAGS})
+ADD_EXECUTABLE(i3_switch_notification ${DIR_SRCS})
+
+TARGET_LINK_LIBRARIES(i3_switch_notification ${I3IPCpp_LIBRARIES} ${GTK3_LDFLAGS})
+
+INSTALL(TARGETS i3_switch_notification
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+
