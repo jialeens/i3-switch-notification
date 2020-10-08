@@ -6,6 +6,7 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
+    Settings::getSettings();
     NotificationMainWindow *mainWindow;
     mainWindow = new NotificationMainWindow(argc, argv);
     new NotificationController(mainWindow);
