@@ -25,12 +25,22 @@ void Settings::loadSettings() {
                                          &error);
             workspaces[i] = new gchar* [2] { keys[i], value };
         }
+        windowWidth = g_key_file_get_integer(rc_key, "style", "window.width", &error);
+        if (windowWidth == 0) {
+            windowWidth = 50;
+        }
+        windowHeight = g_key_file_get_integer(rc_key, "style", "window.height", &error);
+        if (windowHeight == 0) {
+            windowHeight = 50;
+        }
+        windowTransparent = g_key_file_get_boolean(rc_key, "style", "window.transparent", &error);
+
         defaultSymbol = g_key_file_get_string(rc_key, "workspaces", "default", &error);
         symbolFontFamily = g_key_file_get_string(rc_key, "style", "symbol.font.family", &error);
         if (symbolFontFamily == nullptr) {
             symbolFontFamily = nullptr;
         }
-        symbolFontSize = g_key_file_get_integer(rc_key, "style", "symbol.font.family", &error);
+        symbolFontSize = g_key_file_get_integer(rc_key, "style", "symbol.font.size", &error);
         if (symbolFontSize == 0) {
             symbolFontSize = 48;
         }
@@ -67,6 +77,12 @@ gint Settings::getNameFontSize() {
 gchar* Settings::getNameFontFamily() {
     return nameFontFamily;
 }
+gint Settings::getWindowWidth() {
+    return windowWidth;
+}
+gint Settings::getWindowHeight() {
+    return windowHeight;
+}
 Settings* Settings::getSettings() {
     if (nullptr == settings) {
         settings = new Settings();
@@ -76,7 +92,7 @@ Settings* Settings::getSettings() {
 }
 void Settings::checkSettingFile(gchar* settingFilePath) {
     if (access(settingFilePath, F_OK) != 0) {
-        gchar* configDir = g_build_filename(g_get_user_config_dir(), "i3-switch-notification", NULL);
+        gchar* configDir = g_build_filename(g_get_user_config_dir(), PROJECT_NAME, NULL);
         if (access(configDir, F_OK) != 0) {
             mkdir(configDir, 0755);
         }
@@ -87,5 +103,8 @@ void Settings::checkSettingFile(gchar* settingFilePath) {
         dst.close();
         g_free(configDir);
     }
+}
+gboolean Settings::getWindowTransparent() {
+    return windowTransparent;
 }
 Settings::Settings() = default;

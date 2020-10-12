@@ -11,6 +11,8 @@
 class Settings {
    private:
     Settings();
+    gint windowWidth{};
+    gint windowHeight{};
     gchar*** workspaces{};
     gsize workspacesNum{};
     gchar* defaultSymbol{};
@@ -18,6 +20,7 @@ class Settings {
     gint symbolFontSize{};
     gchar* nameFontFamily{};
     gint nameFontSize{};
+    gboolean windowTransparent{};
     static Settings* settings;
     void loadSettings();
     void checkSettingFile(gchar* string);
@@ -30,6 +33,9 @@ class Settings {
     gchar* getNameFontFamily();
     gint getNameFontSize();
     const gchar* configPath = "../share/i3-switch-notification/conf/i3-switch-notification.conf";
+    gint getWindowWidth();
+    gint getWindowHeight();
+    gboolean getWindowTransparent();
 };
 
 #endif  //I3_SWITCH_NOTIFICATION_SETTINGS_H

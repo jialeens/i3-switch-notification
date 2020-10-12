@@ -21,8 +21,9 @@ void *NotificationController::i3WorkspaceNotification(NotificationMainWindow *ma
 }
 
 void *NotificationController::windowController(NotificationMainWindow *mainWindow) {
+    guint64 current;
     while (mainWindow->isRunning()) {
-        guint64 current = g_get_real_time();
+        current = g_get_real_time();
         if (current < mainWindow->getShowTime()) {
             gdk_threads_add_idle((GSourceFunc)NotificationMainWindow::showNotification, mainWindow);
         } else {

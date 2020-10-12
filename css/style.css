@@ -1,6 +1,14 @@
-GtkWindow {
-    border-radius:50px;background-color:green
+
+#nameLabel {
+    font-size: 16px;
+    color: #00897B;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.51);
+    font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "Weather Icons", "更纱黑体 SC", "DroidSansMono Nerd Font Mono", "NotoEmoji Nerd Font Mono", serif;
 }
-* {
-    color:red;
+
+#symbolLabel {
+    color: #00897B;
+    font-size: 48px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.51);
+    font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "Weather Icons", "更纱黑体 SC", "DroidSansMono Nerd Font Mono", "NotoEmoji Nerd Font Mono", serif;
 }
