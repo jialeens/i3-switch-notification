@@ -57,6 +57,7 @@ SET(
         src/NotificationMainWindow.h
         src/NotificationController.cpp
         src/NotificationController.h
+        src/Consts.cpp
         src/Consts.h
         src/Settings.cpp
         src/Settings.h
