@@ -53,12 +53,12 @@ LINK_DIRECTORIES(
 SET(
         DIR_SRCS
         src/main.cpp
+        src/Constant.cpp
+        src/Constant.h
         src/NotificationMainWindow.cpp
         src/NotificationMainWindow.h
         src/NotificationController.cpp
         src/NotificationController.h
-        src/Consts.cpp
-        src/Consts.h
         src/Settings.cpp
         src/Settings.h
 )

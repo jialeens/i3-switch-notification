@@ -7,7 +7,7 @@
 #include <gtk/gtk.h>
 #include <map>
 
-#include "Consts.h"
+#include "Constant.h"
 class Settings {
    private:
     Settings();

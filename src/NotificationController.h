@@ -8,7 +8,7 @@
 #include <iostream>
 #include <gtk/gtk.h>
 #include <i3ipc++/ipc.hpp>
-#include "Consts.h"
+#include "Constant.h"
 #include "NotificationMainWindow.h"
 #include "Settings.h"
 
