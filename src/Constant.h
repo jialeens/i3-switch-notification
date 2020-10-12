@@ -10,7 +10,11 @@
 #define MICROSECOND_UNIT 1000000L
 #define PREFERENCES_FILE "i3-switch-notification/i3-switch-notification.conf"
 
+#include <gtk/gtk.h>
+#include <iostream>
 class Constant {
+   private:
+    Constant();
 };
 
 #endif  //I3_SWITCH_NOTIFICATION_CONSTANT_H

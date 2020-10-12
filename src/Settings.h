@@ -6,8 +6,8 @@
 #define I3_SWITCH_NOTIFICATION_SETTINGS_H
 #include <gtk/gtk.h>
 #include <map>
-
 #include "Constant.h"
+using namespace std;
 class Settings {
    private:
     Settings();
