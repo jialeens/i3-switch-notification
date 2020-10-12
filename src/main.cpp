@@ -8,9 +8,8 @@ using namespace std;
 int main(int argc, char *argv[]) {
     gtk_init(&argc, &argv);
     Settings::getSettings();
-    NotificationMainWindow *mainWindow;
-    mainWindow = new NotificationMainWindow();
-    new NotificationController(mainWindow);
+    new NotificationController(new NotificationMainWindow());
     gtk_main();
+    cout << "end" << endl;
     return 0;
 }

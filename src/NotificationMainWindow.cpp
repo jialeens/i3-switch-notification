@@ -98,7 +98,7 @@ bool NotificationMainWindow::draw(GtkWidget *widget, cairo_t *cr, gpointer data)
     }
     cairo_set_operator(newCr, CAIRO_OPERATOR_SOURCE);
     cairo_paint(newCr);
-    cairo_destroy(newCr);
+    //    cairo_destroy(newCr);
     return false;
 }
 
@@ -110,17 +110,21 @@ void NotificationMainWindow::loadStyle() {
     GdkDisplay *display;
     GdkScreen *screen;
     /// ***
-    GFile *css_fp = g_file_new_for_path(stylePath);
-    GError *error = nullptr;
+    GFile *css_fp;
+    css_fp = g_file_new_for_path(stylePath);
     /// ***
     provider = gtk_css_provider_new();
     display = gdk_display_get_default();
     screen = gdk_display_get_default_screen(display);
     gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+    GError *error = nullptr;
     gtk_css_provider_load_from_file(provider, css_fp, &error);
-    g_object_unref(provider);
-    g_object_unref(css_fp);
-    g_free(error);
+    if (error) {
+        g_error_free(error);
+    }
+    if (css_fp) {
+        g_object_unref(css_fp);
+    }
 }
 
 gboolean NotificationMainWindow::buttonPressed(GtkWidget *eventbox,

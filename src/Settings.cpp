@@ -53,6 +53,7 @@ void Settings::loadSettings() {
             nameFontSize = 16;
         }
 
+        g_free(keys);
         g_key_file_free(rc_key);
         g_free(rc_file);
     }
