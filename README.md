@@ -8,8 +8,8 @@ ___
 
 🔨在i3窗口管理器下，监听workspace的切换事件，并在桌面上进行提示。
 ___
-❗**非稳定，待优化!!!**
-
 ❗**UNSTABLE!!!**
+
+❗**非稳定，待优化!!!**
 ___
 ![Screenshots](Screenshots.gif)
