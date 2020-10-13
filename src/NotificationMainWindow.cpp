@@ -69,9 +69,9 @@ void NotificationMainWindow::buildUI() {
 
 void NotificationMainWindow::transparent(GtkWidget *window) {
     gtk_widget_set_app_paintable(window, true);
+    gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(window, "draw", G_CALLBACK(draw), NULL);
     g_signal_connect(window, "screen-changed", G_CALLBACK(screenChanged), NULL);
-    gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(window, "button-press-event", G_CALLBACK(clicked), NULL);
     screenChanged(window, nullptr, nullptr);
 }
@@ -118,13 +118,42 @@ void NotificationMainWindow::loadStyle() {
     screen = gdk_display_get_default_screen(display);
     gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
     GError *error = nullptr;
-    gtk_css_provider_load_from_file(provider, css_fp, &error);
+
+    gchar *cssData = buildDefaultCss();
+
+    if (Settings::getSettings()->isLoadStyleFromCssFile()) {
+        gtk_css_provider_load_from_file(provider, css_fp, &error);
+    } else {
+        gtk_css_provider_load_from_data(provider, cssData, -1, &error);
+    }
     if (error) {
         g_error_free(error);
     }
     if (css_fp) {
         g_object_unref(css_fp);
     }
+}
+gchar *NotificationMainWindow::buildDefaultCss() const {
+    Settings *pSettings = Settings::getSettings();
+    gchar *cssData = g_strdup_printf("#nameLabel {\n"
+                                     "    font-size: %dpx;\n"
+                                     "    color: %s;\n"
+                                     "    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.51);\n"
+                                     "    font-family: %s\n"
+                                     "}\n"
+                                     "#symbolLabel {\n"
+                                     "    font-size: %dpx;\n"
+                                     "    color: %s;\n"
+                                     "    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.51);\n"
+                                     "    font-family: %s;\n"
+                                     "}\n",
+                                     pSettings->getNameFontSize(),
+                                     pSettings->getNameFontColor(),
+                                     pSettings->getNameFontFamily(),
+                                     pSettings->getSymbolFontSize(),
+                                     pSettings->getSymbolFontColor(),
+                                     pSettings->getSymbolFontFamily());
+    return cssData;
 }
 
 gboolean NotificationMainWindow::buttonPressed(GtkWidget *eventbox,

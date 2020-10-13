@@ -36,6 +36,7 @@ class NotificationMainWindow {
     static void clicked(GtkWindow *window, GdkEventButton *event, gpointer data);
     static void screenChanged(GtkWidget *widget, GdkScreen *old, gpointer data);
     static bool draw(GtkWidget *widget, cairo_t *cr, gpointer data);
+    gchar *buildDefaultCss() const;
 };
 
 #endif  //I3_SWITCH_NOTIFICATION_MAINWINDOW_H

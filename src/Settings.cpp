@@ -25,34 +25,38 @@ void Settings::loadSettings() {
                                          &error);
             workspaces[i] = new gchar* [2] { keys[i], value };
         }
-        windowWidth = g_key_file_get_integer(rc_key, "style", "window.width", &error);
-        if (windowWidth == 0) {
-            windowWidth = 50;
-        }
-        windowHeight = g_key_file_get_integer(rc_key, "style", "window.height", &error);
-        if (windowHeight == 0) {
-            windowHeight = 50;
-        }
-        windowTransparent = g_key_file_get_boolean(rc_key, "style", "window.transparent", &error);
-
         defaultSymbol = g_key_file_get_string(rc_key, "workspaces", "default", &error);
-        symbolFontFamily = g_key_file_get_string(rc_key, "style", "symbol.font.family", &error);
-        if (symbolFontFamily == nullptr) {
-            symbolFontFamily = nullptr;
-        }
-        symbolFontSize = g_key_file_get_integer(rc_key, "style", "symbol.font.size", &error);
-        if (symbolFontSize == 0) {
-            symbolFontSize = 48;
-        }
-        nameFontFamily = g_key_file_get_string(rc_key, "style", "name.font.family", &error);
-        if (nameFontFamily == nullptr) {
-            nameFontFamily = nullptr;
-        }
-        nameFontSize = g_key_file_get_integer(rc_key, "style", "name.font.size", &error);
-        if (nameFontSize == 0) {
-            nameFontSize = 16;
-        }
+        loadStyleFromCssFile = g_key_file_get_boolean(rc_key, "style", "loadStyleFromCssFile", &error);
+        if (!isLoadStyleFromCssFile()) {
+            windowWidth = g_key_file_get_integer(rc_key, "style", "window.width", &error);
+            if (windowWidth == 0) {
+                windowWidth = 50;
+            }
+            windowHeight = g_key_file_get_integer(rc_key, "style", "window.height", &error);
+            if (windowHeight == 0) {
+                windowHeight = 50;
+            }
+            windowTransparent = g_key_file_get_boolean(rc_key, "style", "window.transparent", &error);
 
+            symbolFontColor = g_key_file_get_string(rc_key, "style", "symbol.font.color", &error);
+            symbolFontFamily = g_key_file_get_string(rc_key, "style", "symbol.font.family", &error);
+            if (symbolFontFamily == nullptr) {
+                symbolFontFamily = nullptr;
+            }
+            symbolFontSize = g_key_file_get_integer(rc_key, "style", "symbol.font.size", &error);
+            if (symbolFontSize == 0) {
+                symbolFontSize = 48;
+            }
+            nameFontColor = g_key_file_get_string(rc_key, "style", "name.font.color", &error);
+            nameFontFamily = g_key_file_get_string(rc_key, "style", "name.font.family", &error);
+            if (nameFontFamily == nullptr) {
+                nameFontFamily = nullptr;
+            }
+            nameFontSize = g_key_file_get_integer(rc_key, "style", "name.font.size", &error);
+            if (nameFontSize == 0) {
+                nameFontSize = 16;
+            }
+        }
         g_free(keys);
         g_key_file_free(rc_key);
         g_free(rc_file);
@@ -107,5 +111,14 @@ void Settings::checkSettingFile(gchar* settingFilePath) {
 }
 gboolean Settings::getWindowTransparent() {
     return windowTransparent;
+}
+gchar* Settings::getNameFontColor() {
+    return nameFontColor;
+}
+gchar* Settings::getSymbolFontColor() {
+    return symbolFontColor;
+}
+gboolean Settings::isLoadStyleFromCssFile() {
+    return loadStyleFromCssFile;
 }
 Settings::Settings() = default;

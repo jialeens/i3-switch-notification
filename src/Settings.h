@@ -21,6 +21,9 @@ class Settings {
     gchar* nameFontFamily{};
     gint nameFontSize{};
     gboolean windowTransparent{};
+    gchar* nameFontColor{};
+    gchar* symbolFontColor{};
+    gboolean loadStyleFromCssFile{};
     static Settings* settings;
     void loadSettings();
     void checkSettingFile(gchar* string);
@@ -36,6 +39,9 @@ class Settings {
     gint getWindowWidth();
     gint getWindowHeight();
     gboolean getWindowTransparent();
+    gchar* getNameFontColor();
+    gchar* getSymbolFontColor();
+    gboolean isLoadStyleFromCssFile();
 };
 
 #endif  //I3_SWITCH_NOTIFICATION_SETTINGS_H
