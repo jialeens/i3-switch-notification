@@ -172,15 +172,16 @@ gboolean NotificationMainWindow::buttonPressed(GtkWidget *eventbox,
 int NotificationMainWindow::showNotification(NotificationMainWindow *mainWindow) {
     gchar *name;
     gchar *symbol;
-    if (!mainWindow->isShow()) {
-        gtk_widget_show(mainWindow->window);
-    }
+
     name = g_strdup_printf("%s", mainWindow->workspaceName.c_str());
     symbol = Settings::getSettings()->getWorkspaceSymbol(name);
     gtk_label_set_text(GTK_LABEL(mainWindow->symbolLabel), symbol);
     gtk_label_set_text(GTK_LABEL(mainWindow->nameLabel), name);
-    mainWindow->setShow(true);
+    if (!mainWindow->isShow()) {
+        gtk_widget_show(mainWindow->window);
+    }
     g_free(name);
+    mainWindow->setShow(true);
     return 0;
 }
 
