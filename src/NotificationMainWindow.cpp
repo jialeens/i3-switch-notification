@@ -11,13 +11,12 @@ NotificationMainWindow::NotificationMainWindow() {
 }
 
 void NotificationMainWindow::buildUI() {
-    GtkWidget *box;
+    GtkWidget *mainBox;
+    GtkWidget *bodyBox;
     GtkWidget *symbolBox;
     GtkWidget *nameBox;
-
     //load style
     loadStyle();
-
     // init window
     window = gtk_window_new(GTK_WINDOW_POPUP);
 
@@ -41,9 +40,10 @@ void NotificationMainWindow::buildUI() {
     gtk_widget_set_app_paintable(window, TRUE);
     gtk_widget_set_name(window, "mainWindow");
 
-    box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_widget_set_halign(box, GTK_ALIGN_CENTER);
-    gtk_widget_set_valign(box, GTK_ALIGN_CENTER);
+    mainBox = gtk_event_box_new();
+    bodyBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_widget_set_halign(bodyBox, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(bodyBox, GTK_ALIGN_CENTER);
     nameLabel = gtk_label_new("nameLabel");
     gtk_widget_set_name(nameLabel, "nameLabel");
     symbolLabel = gtk_label_new("symbolLabel");
@@ -51,14 +51,18 @@ void NotificationMainWindow::buildUI() {
     symbolBox = gtk_event_box_new();
     nameBox = gtk_event_box_new();
 
-    gtk_container_add(GTK_CONTAINER(window), box);
-    gtk_container_add(GTK_CONTAINER(box), symbolBox);
-    gtk_container_add(GTK_CONTAINER(box), nameBox);
+    gtk_container_add(GTK_CONTAINER(window), mainBox);
+    gtk_container_add(GTK_CONTAINER(mainBox), bodyBox);
+    gtk_container_add(GTK_CONTAINER(bodyBox), symbolBox);
+    gtk_container_add(GTK_CONTAINER(bodyBox), nameBox);
     gtk_container_add(GTK_CONTAINER(symbolBox), symbolLabel);
     gtk_container_add(GTK_CONTAINER(nameBox), nameLabel);
 
-    g_signal_connect(box, "button_press_event", G_CALLBACK(buttonPressed), (gpointer)this);
+    g_signal_connect(mainBox, "enter-notify-event", G_CALLBACK(buttonPressed), (gpointer)this);
+    g_signal_connect(bodyBox, "button_press_event", G_CALLBACK(buttonPressed), (gpointer)this);
+
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
+
     if (pSettings->getWindowTransparent()) {
         NotificationMainWindow::transparent(window);
     }
@@ -98,7 +102,7 @@ bool NotificationMainWindow::draw(GtkWidget *widget, cairo_t *cr, gpointer data)
     }
     cairo_set_operator(newCr, CAIRO_OPERATOR_SOURCE);
     cairo_paint(newCr);
-    //    cairo_destroy(newCr);
+    cairo_destroy(newCr);
     return false;
 }
 
@@ -159,7 +163,7 @@ gchar *NotificationMainWindow::buildDefaultCss() const {
 gboolean NotificationMainWindow::buttonPressed(GtkWidget *eventbox,
                                                GdkEventButton *event,
                                                NotificationMainWindow *mainWindow) {
-    if (eventbox && event->type == GDK_BUTTON_PRESS) {
+    if (eventbox) {
         if (mainWindow->isShow()) {
             gtk_widget_hide(mainWindow->window);
         }

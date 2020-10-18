@@ -13,8 +13,8 @@
 #include <gtk/gtk.h>
 #include <iostream>
 class Constant {
-   private:
-    Constant();
+   public:
+    Constant() = delete;
 };
 
 #endif  //I3_SWITCH_NOTIFICATION_CONSTANT_H

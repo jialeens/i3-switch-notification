@@ -39,3 +39,6 @@
 
 # CLion dir
 /.idea
+
+# VS Code dir
+/.vscode

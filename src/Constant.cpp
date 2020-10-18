@@ -4,6 +4,4 @@
 
 #include "Constant.h"
 using namespace std;
-Constant::Constant() {
-    cout << "Constant init" << endl;
-}
+
