@@ -9,17 +9,10 @@ license=('@PROJECT_LICENSE@')
 replaces=('')
 depends=(@PKG_DEPENDENCIES@)
 makedepends=(@PKG_BUILD_DEPENDENCIES@)
-install=()
-source=("@PKG_SOURCE_ARCHIVE_FILE@")
-
-build() {
-  cd $srcdir
-  mkdir -p builddir
-  cd builddir
-  cmake $srcdir/@PROJECT_NAME@-@PROJECT_VERSION@
-  make -j2
-}
+source=("@CPACK_PACKAGE_FILE_NAME@.tar.gz")
+sha256sums=("SKIP")
 
 package() {
-  cd builddir
-  make DESTDIR=$pkgdir/ install
+  cd $srcdir
+  cp -r --no-preserve='ownership' -- @CPACK_PACKAGE_FILE_NAME@/* "$pkgdir"
+}

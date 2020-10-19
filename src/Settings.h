@@ -11,6 +11,7 @@ using namespace std;
 class Settings {
    private:
     Settings();
+    const gchar* configPath = "../share/i3-switch-notification/conf/i3-switch-notification.conf";
     gint windowWidth{};
     gint windowHeight{};
     gchar*** workspaces{};
@@ -35,7 +36,6 @@ class Settings {
     gint getSymbolFontSize();
     gchar* getNameFontFamily();
     gint getNameFontSize();
-    const gchar* configPath = "../share/i3-switch-notification/conf/i3-switch-notification.conf";
     gint getWindowWidth();
     gint getWindowHeight();
     gboolean getWindowTransparent();
